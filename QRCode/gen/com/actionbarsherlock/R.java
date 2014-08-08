@@ -259,7 +259,7 @@ public final class R {
 		public static final int abs__textfield_searchview_right_holo_dark = 0x7f02006d;
 		public static final int abs__textfield_searchview_right_holo_light = 0x7f02006e;
 		public static final int abs__toast_frame = 0x7f02006f;
-		public static final int ic_launcher = 0x7f020081;
+		public static final int ic_launcher = 0x7f020084;
 	}
 	public static final class id {
 		public static final int abs__action_bar = 0x7f050036;
@@ -301,7 +301,7 @@ public final class R {
 		public static final int abs__textButton = 0x7f050029;
 		public static final int abs__title = 0x7f050031;
 		public static final int abs__up = 0x7f05000b;
-		public static final int action_settings = 0x7f05008d;
+		public static final int action_settings = 0x7f05009d;
 		public static final int disableHome = 0x7f050009;
 		public static final int edit_query = 0x7f05003c;
 		public static final int homeAsUp = 0x7f050006;
@@ -339,9 +339,9 @@ public final class R {
 		public static final int abs__search_dropdown_item_icons_2line = 0x7f030012;
 		public static final int abs__search_view = 0x7f030013;
 		public static final int abs__simple_dropdown_hint = 0x7f030014;
-		public static final int activity_main = 0x7f03001b;
-		public static final int sherlock_spinner_dropdown_item = 0x7f030023;
-		public static final int sherlock_spinner_item = 0x7f030024;
+		public static final int activity_main = 0x7f03001c;
+		public static final int sherlock_spinner_dropdown_item = 0x7f030025;
+		public static final int sherlock_spinner_item = 0x7f030026;
 	}
 	public static final class menu {
 		public static final int main = 0x7f0c0000;

@@ -262,6 +262,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 			long count = db.addMaterialsInfo(materialsInfoCache);
 			if (count > 0) {
 				showToast("新建物资信息成功");
+				goToLookMaterialsInfo(materials_info_materialsNo);
 				finish();
 			} else {
 				showToast("新建物资信息失败");
@@ -277,6 +278,17 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 				finish();
 			}*/
 		}
+	}
+
+	/**
+	 * 跳转到查看物资信息Activity
+	 * @param materialsNo
+	 */
+	private void goToLookMaterialsInfo(String materialsNo) {
+		Intent intent = new Intent();
+		intent.putExtra("materialsNo", materialsNo);
+		intent.setClass(this, LookMaterialsInfoActivity.class);
+		startActivity(intent);
 	}
 
 	/**

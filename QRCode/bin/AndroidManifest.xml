@@ -116,6 +116,7 @@
                 <data android:mimeType="org.gditc.qrcode/materialsinfo.edit" />
             </intent-filter>
         </activity>
+        <activity android:name="org.gditc.qrcode.app.LookMaterialsInfoActivity"/>
     </application>
 
 </manifest>
