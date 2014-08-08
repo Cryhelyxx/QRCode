@@ -1,4 +1,4 @@
-﻿QRCode
+﻿QRCode(Android客户端)
 ======
 
 二维码实现资产清查辅助工具
