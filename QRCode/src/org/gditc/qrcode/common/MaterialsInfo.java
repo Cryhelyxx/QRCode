@@ -14,8 +14,11 @@ public class MaterialsInfo implements Serializable {
 	
 	private Integer id;
 	private String materialsNo;				// 物资编码
-	private LedgerInfo ledgerInfo;			// 台账信息对象
-	private CardInfo cardInfo;				// 卡片信息对象
+	private LedgerInfo ledgerInfo = new LedgerInfo();			// 台账信息对象
+	private CardInfo cardInfo = new CardInfo();				// 卡片信息对象
+	private String ledgerId;
+	private String cardId;
+	private String note;					// 物资备注
 	
 	public Integer getId() {
 		return id;
@@ -41,4 +44,23 @@ public class MaterialsInfo implements Serializable {
 	public void setCardInfo(CardInfo cardInfo) {
 		this.cardInfo = cardInfo;
 	}
+	public String getLedgerId() {
+		return ledgerId;
+	}
+	public void setLedgerId(String ledgerId) {
+		this.ledgerId = ledgerId;
+	}
+	public String getCardId() {
+		return cardId;
+	}
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
+	}
+	
 }

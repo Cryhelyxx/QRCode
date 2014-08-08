@@ -226,35 +226,35 @@ public class QRCodeDbHelper {
 			MaterialsInfo materialsInfo = (MaterialsInfo) it.next();
 			LedgerInfo ledgerInfo = materialsInfo.getLedgerInfo();
 			CardInfo cardInfo = materialsInfo.getCardInfo();
+
+			addLedgerInfo(ledgerInfo);
+			addCardInfo(cardInfo);
+
+			String ledgerId = null;
+			String cardId = null;
+			Cursor cursor = null;
+
+			cursor = findLedgerIdByLedgerInfo(ledgerInfo);
+			if (cursor.getCount() > 1) {		// 保存一张物资表对应的ledgerId是独一无二的
+				cursor.moveToLast();
+				ledgerId = cursor.getString(0);
+			} else {
+				cursor.moveToFirst();
+				ledgerId = cursor.getString(0);
+			}
 			
-			String ledgerId = findLedgerRowIdCardNo(ledgerInfo.getCardNo());
-			String cardId = findCardRowIdFID(cardInfo.getFID());
-
-			ContentValues values1 = new ContentValues();
-			if (!"".equals(ledgerInfo.getCardNo().trim()) && null != ledgerInfo.getCardNo() && null == ledgerId) {
-				values1.put(FieldNames[1][1], ledgerInfo.getCardNo());
-				values1.put(FieldNames[1][2], ledgerInfo.getDevicesNo());
-				values1.put(FieldNames[1][3], ledgerInfo.getCommissioningDate());
-				values1.put(FieldNames[1][4], ledgerInfo.getManufacturer());
-				values1.put(FieldNames[1][5], ledgerInfo.getRemark());
-				values1.put(FieldNames[1][6], ledgerInfo.getCost());
-				ledgerInfo.setId(Integer.valueOf(String.valueOf(mDb.insert(TableNames[1], null, values1))));
+			cursor = findCardIdByCardInfo(cardInfo);
+			if (cursor.getCount() > 1) {		// 保存一张物资表对应的cardId是独一无二的
+				cursor.moveToLast();
+				cardId = cursor.getString(0);
+			} else {
+				cursor.moveToFirst();
+				cardId = cursor.getString(0);
 			}
-
-			ContentValues values2 = new ContentValues();
-			if (!"".equals(cardInfo.getFID().trim()) && null != cardInfo.getFID() && null == cardId) {
-				values2.put(FieldNames[2][1], cardInfo.getFID());
-				values2.put(FieldNames[2][2], cardInfo.getAssetsName());
-				values2.put(FieldNames[2][3], cardInfo.getSpecification());
-				values2.put(FieldNames[2][4], cardInfo.getManufacturer());
-				values2.put(FieldNames[2][5], cardInfo.getCommissioningDate());
-				values2.put(FieldNames[2][6], cardInfo.getPropertyRight());
-				cardInfo.setId(Integer.valueOf(String.valueOf(mDb.insert(TableNames[2], null, values2))));
-			}
-
+			
+			cursor.close();
+			
 			ContentValues values0 = new ContentValues();
-			ledgerId = findLedgerRowIdCardNo(ledgerInfo.getCardNo());
-			cardId = findCardRowIdFID(cardInfo.getFID());
 			if (ledgerId != null || cardId != null) {
 				if (materialsInfo.getMaterialsNo() != null && !"".equals(materialsInfo.getMaterialsNo().trim())) {
 					values0.put(FieldNames[0][1], materialsInfo.getMaterialsNo());
@@ -262,41 +262,9 @@ public class QRCodeDbHelper {
 					values0.put(FieldNames[0][3], cardId);
 					mDb.insert(TableNames[0], null, values0);
 				}
-				
+
 			}
 		}
-	}
-
-	/**
-	 * 在台账信息表中， 根据卡片编号查找行id
-	 * @param cardNo
-	 * @return
-	 */
-	private String findLedgerRowIdCardNo(String cardNo) {
-		String sql = "SELECT " + FieldNames[1][0] + " FROM " + TableNames[1] + " WHERE " + FieldNames[1][1] + "=?";
-		String[] selectionArgs = {cardNo};
-		Cursor cursor = mDb.rawQuery(sql, selectionArgs);
-		if (cursor.moveToNext()) {
-			return String.valueOf(cursor.getInt(0));
-		}
-		cursor.close();
-		return null;
-	}
-
-	/**
-	 * 在卡片信息表中， 根据FID查找行Id
-	 * @param fid
-	 * @return
-	 */
-	private String findCardRowIdFID(String fid) {
-		String sql = "SELECT " + FieldNames[2][0] + " FROM " + TableNames[2] + " WHERE " + FieldNames[2][1] + "=?";
-		String[] selectionArgs = {fid};
-		Cursor cursor = mDb.rawQuery(sql, selectionArgs);
-		if (cursor.moveToNext()) {
-			return String.valueOf(cursor.getInt(0));
-		}
-		cursor.close();
-		return null;
 	}
 
 	/**
@@ -377,7 +345,7 @@ public class QRCodeDbHelper {
 		values.put(FieldNames[1][4], ledgerInfoCache.getManufacturer());
 		values.put(FieldNames[1][5], ledgerInfoCache.getRemark());
 		values.put(FieldNames[1][6], ledgerInfoCache.getCost());
-		
+
 		return mDb.insert(TableNames[1], null, values);
 	}
 
@@ -395,7 +363,7 @@ public class QRCodeDbHelper {
 		values.put(FieldNames[1][4], ledgerInfoCache.getManufacturer());
 		values.put(FieldNames[1][5], ledgerInfoCache.getRemark());
 		values.put(FieldNames[1][6], ledgerInfoCache.getCost());
-		
+
 		return mDb.update(TableNames[1], values, FieldNames[1][0] + "=?", new String[]{ledgerId});
 	}
 
@@ -412,7 +380,7 @@ public class QRCodeDbHelper {
 		values.put(FieldNames[2][4], cardInfoCache.getManufacturer());
 		values.put(FieldNames[2][5], cardInfoCache.getCommissioningDate());
 		values.put(FieldNames[2][6], cardInfoCache.getPropertyRight());
-		
+
 		return mDb.insert(TableNames[2], null, values);
 	}
 
@@ -430,7 +398,7 @@ public class QRCodeDbHelper {
 		values.put(FieldNames[2][4], cardInfoCache.getManufacturer());
 		values.put(FieldNames[2][5], cardInfoCache.getCommissioningDate());
 		values.put(FieldNames[2][6], cardInfoCache.getPropertyRight());
-		
+
 		return mDb.update(TableNames[2], values, FieldNames[2][0] + "=?", new String[]{cardId});
 	}
 
@@ -444,6 +412,55 @@ public class QRCodeDbHelper {
 		ContentValues values = new ContentValues();
 		values.put(FieldNames[0][1], strMaterialsNo);
 		return mDb.update(TableNames[0], values, FieldNames[0][1] + "=?", new String[]{materialsNo});
+	}
+
+	public Cursor findLedgerIdByLedgerInfo(LedgerInfo ledgerInfo) {
+		String sql = "SELECT " + FieldNames[1][0] + " FROM " + TableNames[1] + " WHERE " 
+				+ FieldNames[1][1] + "=? AND "
+				+ FieldNames[1][2] + "=? AND "
+				+ FieldNames[1][3] + "=? AND "
+				+ FieldNames[1][4] + "=? AND "
+				+ FieldNames[1][5] + "=? AND "
+				+ FieldNames[1][6] + "=?";
+		String[] selectionArgs = {ledgerInfo.getCardNo(),
+				ledgerInfo.getDevicesNo(),
+				ledgerInfo.getCommissioningDate(),
+				ledgerInfo.getManufacturer(),
+				ledgerInfo.getRemark(),
+				ledgerInfo.getCost()};
+		return mDb.rawQuery(sql, selectionArgs);
+	}
+
+	public Cursor findCardIdByCardInfo(CardInfo cardInfo) {
+		String sql = "SELECT " + FieldNames[2][0] + " FROM " + TableNames[2] + " WHERE " 
+				+ FieldNames[2][1] + "=? AND "
+				+ FieldNames[2][2] + "=? AND "
+				+ FieldNames[2][3] + "=? AND "
+				+ FieldNames[2][4] + "=? AND "
+				+ FieldNames[2][5] + "=? AND "
+				+ FieldNames[2][6] + "=?";
+		String[] selectionArgs = {cardInfo.getFID(),
+				cardInfo.getAssetsName(),
+				cardInfo.getSpecification(),
+				cardInfo.getManufacturer(),
+				cardInfo.getCommissioningDate(),
+				cardInfo.getPropertyRight()};
+		return mDb.rawQuery(sql, selectionArgs);
+	}
+
+	/**
+	 * 新增物资信息
+	 * @param materialsInfoCache
+	 * @return
+	 */
+	public long addMaterialsInfo(MaterialsInfo materialsInfoCache) {
+		ContentValues values = new ContentValues();
+		values.put(FieldNames[0][1], materialsInfoCache.getMaterialsNo());
+		values.put(FieldNames[0][2], materialsInfoCache.getLedgerId());
+		values.put(FieldNames[0][3], materialsInfoCache.getCardId());
+		values.put(FieldNames[0][4], materialsInfoCache.getNote());
+
+		return mDb.insert(TableNames[0], null, values);
 	}
 
 

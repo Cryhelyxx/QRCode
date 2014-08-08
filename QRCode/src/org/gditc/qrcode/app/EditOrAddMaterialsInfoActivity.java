@@ -3,7 +3,7 @@ package org.gditc.qrcode.app;
 import java.util.Calendar;
 
 import org.gditc.qrcode.R;
-import org.gditc.qrcode.common.CardInfo;
+import org.gditc.qrcode.common.MaterialsInfo;
 import org.gditc.qrcode.dao.QRCodeDbHelper;
 import org.gditc.qrcode.utils.StackManager;
 
@@ -35,11 +35,14 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	// 记录当前情景的状态(插入或编辑)
 	private int state;
 
-	private CardInfo cardInfoCache = null;
+	private MaterialsInfo materialsInfoCache = null;
 
 	private Button btn_back = null;
 	private TextView tv_title = null;
 	private Button btn_save = null;
+
+	private EditText et_materials_info_materialsNo = null;
+	private EditText et_materials_info_note = null;
 
 	private EditText et_ledger_info_cardNo = null;
 	private EditText et_ledger_info_devicesNo = null;
@@ -47,7 +50,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	private EditText et_ledger_info_manufacturer = null;
 	private EditText et_ledger_info_remark = null;
 	private EditText et_ledger_info_cost = null;
-	
+
 	private EditText et_card_info_FID = null;
 	private EditText et_card_info_assetsName = null;
 	private EditText et_card_info_specification = null;
@@ -55,6 +58,9 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	private Button btn_card_info_commissioningDate = null;
 	private EditText et_card_info_propertyRight = null;
 
+	//---------物资信息-------------------------
+	private String materials_info_materialsNo = null;		// 物资编号
+	private String materials_info_note = null;				// 物资信息的备注
 	// 台账信息
 	private String ledger_info_cardNo = null; 				// 卡片编号
 	private String ledger_info_devicesNo = null; 			// 设备编号
@@ -62,7 +68,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	private String ledger_info_manufacturer = null; 		// 生产厂家
 	private String ledger_info_remark = null; 				// 备 注
 	private String ledger_info_cost = null; 				// 原 值
-	
+
 	// 卡片信息
 	private String card_info_FID = null; 					// FID
 	private String card_info_assetsName = null; 			// 资产型号
@@ -76,7 +82,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	private int mMonth;
 	private int mDay;
 
-	private String cardId = null;
+	//private String cardId = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +129,10 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 		btn_back = (Button) this.findViewById(R.id.btn_back_materials_info);
 		tv_title = (TextView) this.findViewById(R.id.title_materials_info);
 		btn_save = (Button) this.findViewById(R.id.btn_save_materials_info);
-		
+
+		et_materials_info_materialsNo = (EditText) this.findViewById(R.id.materials_info_materialsNo);
+		et_materials_info_note = (EditText) this.findViewById(R.id.materials_info_note);
+
 		et_ledger_info_cardNo = (EditText) this.findViewById(R.id.materials_info_ledger_info_cardNo);
 		et_ledger_info_devicesNo = (EditText) this.findViewById(R.id.materials_info_ledger_info_devicesNo);
 		btn_ledger_info_commissioningDate = (Button) this.findViewById(R.id.materials_info_ledger_info_commissioningDate);
@@ -157,15 +166,15 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				/*verifyData();*/
+				verifyData();
 			}
 		});
 		btn_ledger_info_commissioningDate.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				String commissioningDate = btn_card_info_commissioningDate.getText().toString();
-				createDatePickerDialog(commissioningDate).show();
+				createDatePickerDialog(v, commissioningDate).show();
 			}
 		});
 		btn_card_info_commissioningDate.setOnClickListener(new View.OnClickListener() {
@@ -173,7 +182,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String commissioningDate = btn_card_info_commissioningDate.getText().toString();
-				createDatePickerDialog(commissioningDate).show();
+				createDatePickerDialog(v, commissioningDate).show();
 			}
 		});
 	}
@@ -183,7 +192,26 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	/**
 	 * 验证数据， 并插入到数据库
 	 */
-	protected void verifyData() {
+	private void verifyData() {
+		ledger_info_cardNo = et_ledger_info_cardNo.getText().toString().trim();
+		ledger_info_devicesNo = et_ledger_info_devicesNo.getText().toString().trim();
+		ledger_info_commissioningDate = btn_ledger_info_commissioningDate.getText().toString();
+		ledger_info_manufacturer = et_ledger_info_manufacturer.getText().toString().trim();
+		ledger_info_remark = et_ledger_info_remark.getText().toString().trim();
+		ledger_info_cost = et_ledger_info_cost.getText().toString().trim();
+		// 检验数据的合法性
+		/*if ("".equals(ledger_info_cardNo) || null == ledger_info_cardNo) {
+			showToast("卡片编号不能为空");
+			return;
+		}*/
+		materialsInfoCache = new MaterialsInfo();
+		materialsInfoCache.getLedgerInfo().setCardNo(ledger_info_cardNo);
+		materialsInfoCache.getLedgerInfo().setDevicesNo(ledger_info_devicesNo);
+		materialsInfoCache.getLedgerInfo().setCommissioningDate(ledger_info_commissioningDate);
+		materialsInfoCache.getLedgerInfo().setManufacturer(ledger_info_manufacturer);
+		materialsInfoCache.getLedgerInfo().setRemark(ledger_info_remark);
+		materialsInfoCache.getLedgerInfo().setCost(ledger_info_cost);
+
 		card_info_FID = et_card_info_FID.getText().toString().trim();
 		card_info_assetsName = et_card_info_assetsName.getText().toString().trim();
 		card_info_specification = et_card_info_specification.getText().toString().trim();
@@ -191,36 +219,63 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 		card_info_commissioningDate = btn_card_info_commissioningDate.getText().toString();
 		card_info_propertyRight = et_card_info_propertyRight.getText().toString().trim();
 		// 检验数据的合法性
-		if ("".equals(card_info_FID) || null == card_info_FID) {
+		/*if ("".equals(card_info_FID) || null == card_info_FID) {
 			showToast("FID不能为空");
 			return;
-		}
-		cardInfoCache = new CardInfo();
-		cardInfoCache.setFID(card_info_FID);
-		cardInfoCache.setAssetsName(card_info_assetsName);
-		cardInfoCache.setSpecification(card_info_specification);
-		cardInfoCache.setManufacturer(card_info_manufacturer);
-		cardInfoCache.setCommissioningDate(card_info_commissioningDate);
-		cardInfoCache.setPropertyRight(card_info_propertyRight);
+		}*/
+		materialsInfoCache.getCardInfo().setFID(card_info_FID);
+		materialsInfoCache.getCardInfo().setAssetsName(card_info_assetsName);
+		materialsInfoCache.getCardInfo().setSpecification(card_info_specification);
+		materialsInfoCache.getCardInfo().setManufacturer(card_info_manufacturer);
+		materialsInfoCache.getCardInfo().setCommissioningDate(card_info_commissioningDate);
+		materialsInfoCache.getCardInfo().setPropertyRight(card_info_propertyRight);
 
 		if (state == STATE_INSERT) {
-			long count = db.addCardInfo(cardInfoCache);
+			db.addLedgerInfo(materialsInfoCache.getLedgerInfo());
+			db.addCardInfo(materialsInfoCache.getCardInfo());
+
+			String ledgerId = null;
+			String cardId = null;
+			
+			cursor = db.findLedgerIdByLedgerInfo(materialsInfoCache.getLedgerInfo());
+			if (cursor.moveToNext()) {
+				ledgerId = cursor.getString(0);
+			}
+			cursor = db.findCardIdByCardInfo(materialsInfoCache.getCardInfo());
+			if (cursor.moveToNext()) {
+				cardId = cursor.getString(0);
+			}
+			materials_info_materialsNo = et_materials_info_materialsNo.getText().toString().trim();
+			materials_info_note = et_materials_info_note.getText().toString();
+			// 检验数据的合法性
+			if ("".equals(materials_info_materialsNo) || null == materials_info_materialsNo) {
+				showToast("物资编号不能为空");
+				return;
+			}
+			
+			materialsInfoCache = new MaterialsInfo();
+			materialsInfoCache.setMaterialsNo(materials_info_materialsNo);
+			materialsInfoCache.setNote(materials_info_note);
+			materialsInfoCache.setLedgerId(ledgerId);
+			materialsInfoCache.setCardId(cardId);
+			
+			long count = db.addMaterialsInfo(materialsInfoCache);
 			if (count > 0) {
-				showToast("新建卡片信息成功");
+				showToast("新建物资信息成功");
 				finish();
 			} else {
-				showToast("新建卡片信息失败");
+				showToast("新建物资信息失败");
 				finish();
 			}
 		} else {
-			int count = db.updateCardInfo(cardInfoCache, cardId);
+			/*int count = db.updateCardInfo(cardInfoCache, cardId);
 			if (count > 0) {
 				showToast("卡片信息更新成功");
 				finish();
 			} else {
 				showToast("卡片信息更新失败");
 				finish();
-			}
+			}*/
 		}
 	}
 
@@ -244,52 +299,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	 * @param intent 
 	 */
 	private void readDataFromDb(Intent intent) {
-		cardId = intent.getStringExtra("cardId");
-		cursor = db.findCardInfoById(cardId);
-		if (cursor.moveToNext()) {
-			if (cardInfoCache == null) {
-				card_info_FID = cursor.getString(1);
-				card_info_assetsName = cursor.getString(2);
-				card_info_specification = cursor.getString(3);
-				card_info_manufacturer = cursor.getString(4);
-				card_info_commissioningDate = cursor.getString(5);
-				card_info_propertyRight = cursor.getString(6);
-			} else {
-				card_info_FID = cardInfoCache.getFID();
-				card_info_assetsName = cardInfoCache.getAssetsName();
-				card_info_specification = cardInfoCache.getSpecification();
-				card_info_manufacturer = cardInfoCache.getManufacturer();
-				card_info_commissioningDate = cardInfoCache.getCommissioningDate();
-				card_info_propertyRight = cardInfoCache.getPropertyRight();
-			}
 
-			if (card_info_FID != null) {
-				et_card_info_FID.setTextKeepState(card_info_FID);	// 保持光标原先的位置
-			} else {
-				et_card_info_FID.setText(card_info_FID);			// 光标跑到最后
-			}
-			if (card_info_assetsName != null) {
-				et_card_info_assetsName.setTextKeepState(card_info_assetsName);
-			} else {
-				et_card_info_assetsName.setText(card_info_assetsName);
-			}
-			if (card_info_specification != null) {
-				et_card_info_specification.setTextKeepState(card_info_specification);
-			} else {
-				et_card_info_specification.setText(card_info_specification);
-			}
-			if (card_info_manufacturer != null) {
-				et_card_info_manufacturer.setTextKeepState(card_info_manufacturer);
-			} else {
-				et_card_info_manufacturer.setText(card_info_manufacturer);
-			}
-			btn_card_info_commissioningDate.setText(card_info_commissioningDate);
-			if (card_info_propertyRight != null) {
-				et_card_info_propertyRight.setTextKeepState(card_info_propertyRight);
-			} else {
-				et_card_info_propertyRight.setText(card_info_propertyRight);
-			}
-		}
 	}
 
 	/**
@@ -300,23 +310,17 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		// 缓存数据
-		cardInfoCache = new CardInfo();
-		cardInfoCache.setFID(et_card_info_FID.getText().toString().trim());
-		cardInfoCache.setAssetsName(et_card_info_assetsName.getText().toString().trim());
-		cardInfoCache.setSpecification(et_card_info_specification.getText().toString().trim());
-		cardInfoCache.setManufacturer(et_card_info_manufacturer.getText().toString().trim());
-		cardInfoCache.setCommissioningDate(btn_card_info_commissioningDate.getText().toString());
-		cardInfoCache.setPropertyRight(et_card_info_propertyRight.getText().toString().trim());
 
-		outState.putSerializable("originalData", cardInfoCache);
+		outState.putSerializable("originalData", materialsInfoCache);
 	}
 
 	/**
 	 * 日期选择器对话框
+	 * @param v 
 	 * @param commissioningDate
 	 * @return
 	 */
-	public DatePickerDialog createDatePickerDialog(String commissioningDate) {
+	public DatePickerDialog createDatePickerDialog(final View v, String commissioningDate) {
 		initCommissioningDate(commissioningDate);
 		DatePickerDialog datePickerDialog =
 				new DatePickerDialog(EditOrAddMaterialsInfoActivity.this, new OnDateSetListener() {
@@ -325,7 +329,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 					public void onDateSet(DatePicker view, int year, int monthOfYear,
 							int dayOfMonth) {
 						String date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-						btn_card_info_commissioningDate.setText(date);
+						((Button) v).setText(date);
 					}
 				}, mYear, mMonth - 1, mDay);
 		return datePickerDialog;
