@@ -308,6 +308,9 @@ public class MainActivity extends Activity {
 					@Override
 					public boolean onMenuItemClick(MenuItem item){
 						switch (item.getItemId()) {
+						case R.id.popup_menu_add_materials_info:
+							addMaterialsInfo();
+							break;
 						case R.id.popup_menu_update_database_from_excel:
 							showFileChooser();
 							break;
@@ -422,6 +425,14 @@ public class MainActivity extends Activity {
 				MainActivity.this.startActivity(intent);
 			}
 		});
+	}
+	
+	private void addMaterialsInfo() {
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_INSERT);
+		intent.setDataAndType(Uri.parse(MyConstants.CONTENT_URI),
+				MyConstants.MATERIALS_INFO_CONTENT_TYPE_INSERT);
+		startActivity(intent);
 	}
 
 	/**

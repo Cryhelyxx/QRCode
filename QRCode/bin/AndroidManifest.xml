@@ -94,6 +94,28 @@
                 <data android:mimeType="org.gditc.qrcode/cardinfo.edit" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="org.gditc.qrcode.app.EditOrAddMaterialsInfoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@style/AppTheme" >
+
+            <!-- insert data -->
+            <intent-filter>
+                <action android:name="android.intent.action.INSERT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="org.gditc.qrcode/materialsinfo.insert" />
+            </intent-filter>
+            <!-- edit data -->
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="org.gditc.qrcode/materialsinfo.edit" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

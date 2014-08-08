@@ -26,6 +26,7 @@
     <string name="manufacturer1">制造商</string>
     <string name="propertyRight">产 权</string>
     <string name="scan_data">扫一扫</string>
+    <string name="popup_menu_add_materials_info" >添加物资信息</string>
     <string name="popup_menu_update_database_from_excel" >更新数据库数据</string>
     <string name="popup_menu_export_database_data_to_Excel" >导出数据到Excel</string>
     <string name="popup_menu_about_us" >版权所有</string>

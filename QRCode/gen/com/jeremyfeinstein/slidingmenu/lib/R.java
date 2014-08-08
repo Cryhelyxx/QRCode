@@ -315,7 +315,7 @@ public final class R {
 		public static final int abs__textButton = 0x7f050029;
 		public static final int abs__title = 0x7f050031;
 		public static final int abs__up = 0x7f05000b;
-		public static final int action_settings = 0x7f05007c;
+		public static final int action_settings = 0x7f05008d;
 		public static final int disableHome = 0x7f050009;
 		public static final int edit_query = 0x7f05003c;
 		public static final int fullscreen = 0x7f050013;
@@ -330,7 +330,7 @@ public final class R {
 		public static final int showCustom = 0x7f050008;
 		public static final int showHome = 0x7f050005;
 		public static final int showTitle = 0x7f050007;
-		public static final int slidingmenumain = 0x7f05007b;
+		public static final int slidingmenumain = 0x7f05008c;
 		public static final int tabMode = 0x7f050003;
 		public static final int useLogo = 0x7f050004;
 		public static final int wrap_content = 0x7f050000;
@@ -360,10 +360,10 @@ public final class R {
 		public static final int abs__search_dropdown_item_icons_2line = 0x7f030012;
 		public static final int abs__search_view = 0x7f030013;
 		public static final int abs__simple_dropdown_hint = 0x7f030014;
-		public static final int activity_main = 0x7f03001a;
-		public static final int sherlock_spinner_dropdown_item = 0x7f030021;
-		public static final int sherlock_spinner_item = 0x7f030022;
-		public static final int slidingmenumain = 0x7f030023;
+		public static final int activity_main = 0x7f03001b;
+		public static final int sherlock_spinner_dropdown_item = 0x7f030023;
+		public static final int sherlock_spinner_item = 0x7f030024;
+		public static final int slidingmenumain = 0x7f030025;
 	}
 	public static final class menu {
 		public static final int main = 0x7f0c0000;
