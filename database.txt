@@ -1,0 +1,55 @@
+﻿1. 类
+MaterialsInfo						// 物资信息
+	Integer id
+	String materialsNo				// 物资编码
+	LedgerInfo ledgerInfo			// 台账信息对象
+	CardInfo cardInfo				// 卡片信息对象
+	String ledgerId
+	String cardId
+	
+LedgerInfo							// 台账信息
+	Integer id
+	String cardNo					// 卡片编号
+	String devicesNo				// 设备编号
+	String commissioningDate		// 投运日期
+	String manufacturer				// 生产厂家
+	String remark					// 备注
+	Double cost						// 原值
+	
+CardInfo							// 卡片信息
+	Integer id
+	String FID
+	String assetsName				// 资产名称
+	String specification			// 规格型号
+	String manufacturer				// 制造商
+	String commissioningDate		// 投运日期
+	String propertyRight			// 产权
+	
+2. 表
+	tbl_materials_info				// 物资信息表
+		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL _id
+		Text UNIQUE NOT NULL materialsNo			// 物资编码
+		Text ledgerId				// 台账信息类的id
+		Text cardId					// 卡片信息类的id
+		
+	tbl_ledger_info					// 台账信息表
+		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL _id
+		TEXT NOT NULL cardNo					// 卡片编号
+		Text devicesNo				// 设备编号
+		Text commissioningDate		// 投运日期
+		Text manufacturer			// 生产厂家
+		Text remark					// 备注
+		Text cost					// 原值
+		
+	tbl_card_info					// 卡片信息表
+		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL _id
+		TEXT NOT NULL FID
+		Text assetsName				// 资产名称
+		Text specification			// 规格型号
+		Text manufacturer			// 制造商
+		Text commissioningDate		// 投运日期
+		Text propertyRight			// 产权
+3. 逻辑处理
+(1) 一条物资信息可有可无台账信息或卡片信息， 即物资信息可只有台账信息 或 只有卡片信息 或 都包含台账信息和卡片信息。
+(2) 台账信息、卡片信息、物资信息， 三者之间是相互独立的。
+(3) 物资信息表、台账信息表、卡片信息表， 3个数据库表中的每条记录的信息都是不完全重复的， 因为已对表中某字段设置了非空约束。
