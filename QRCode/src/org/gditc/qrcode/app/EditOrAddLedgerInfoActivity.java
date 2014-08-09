@@ -177,7 +177,7 @@ public class EditOrAddLedgerInfoActivity extends Activity {
 				finish();
 			}
 		} else {
-			int count = db.updateLedgerInfo(ledgerInfoCache, ledgerId);
+			int count = db.updateLedgerInfoByLedgerId(ledgerInfoCache, ledgerId);
 			if (count > 0) {
 				showToast("台账信息更新成功");
 				finish();

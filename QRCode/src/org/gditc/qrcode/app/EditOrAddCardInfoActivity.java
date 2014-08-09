@@ -180,7 +180,7 @@ public class EditOrAddCardInfoActivity extends Activity {
 				finish();
 			}
 		} else {
-			int count = db.updateCardInfo(cardInfoCache, cardId);
+			int count = db.updateCardInfoByCardId(cardInfoCache, cardId);
 			if (count > 0) {
 				showToast("卡片信息更新成功");
 				finish();

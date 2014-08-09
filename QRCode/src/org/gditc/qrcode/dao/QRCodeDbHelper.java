@@ -355,7 +355,7 @@ public class QRCodeDbHelper {
 	 * @param ledgerId
 	 * @return
 	 */
-	public int updateLedgerInfo(LedgerInfo ledgerInfoCache, String ledgerId) {
+	public int updateLedgerInfoByLedgerId(LedgerInfo ledgerInfoCache, String ledgerId) {
 		ContentValues values = new ContentValues();
 		values.put(FieldNames[1][1], ledgerInfoCache.getCardNo());
 		values.put(FieldNames[1][2], ledgerInfoCache.getDevicesNo());
@@ -390,7 +390,7 @@ public class QRCodeDbHelper {
 	 * @param cardId
 	 * @return
 	 */
-	public int updateCardInfo(CardInfo cardInfoCache, String cardId) {
+	public int updateCardInfoByCardId(CardInfo cardInfoCache, String cardId) {
 		ContentValues values = new ContentValues();
 		values.put(FieldNames[2][1], cardInfoCache.getFID());
 		values.put(FieldNames[2][2], cardInfoCache.getAssetsName());
@@ -461,6 +461,21 @@ public class QRCodeDbHelper {
 		values.put(FieldNames[0][4], materialsInfoCache.getNote());
 
 		return mDb.insert(TableNames[0], null, values);
+	}
+
+	/**
+	 * 根据物资编号更新物资信息
+	 * @param materialsInfo
+	 * @param materialsNo
+	 * @return
+	 */
+	public int updateMaterialsInfoByMaterialsNo(MaterialsInfo materialsInfo, String materialsNo) {
+		ContentValues values = new ContentValues();
+		values.put(FieldNames[0][1], materialsInfo.getMaterialsNo());
+		//values.put(FieldNames[0][2], materialsInfo.getLedgerId());
+		//values.put(FieldNames[0][3], materialsInfo.getCardId());
+		values.put(FieldNames[0][4], materialsInfo.getNote());
+		return mDb.update(TableNames[0], values, FieldNames[0][1] + "=?", new String[]{materialsNo});
 	}
 
 

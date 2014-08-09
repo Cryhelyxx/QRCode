@@ -1,6 +1,7 @@
 package org.gditc.qrcode.app;
 
 import org.gditc.qrcode.R;
+import org.gditc.qrcode.common.MyConstants;
 import org.gditc.qrcode.dao.QRCodeDbHelper;
 import org.gditc.qrcode.utils.PrepareDbData;
 import org.gditc.qrcode.utils.StackManager;
@@ -8,6 +9,7 @@ import org.gditc.qrcode.utils.StackManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +27,7 @@ public class LookMaterialsInfoActivity extends Activity {
 	private Cursor cursor = null;
 	
 	private Button btn_back = null;
+	private Button btn_edit = null;
 
 	private TextView  tv_materialsNo= null;
 	private TextView  ledgerInfo_cardNo = null;
@@ -75,6 +78,7 @@ public class LookMaterialsInfoActivity extends Activity {
 	 */
 	private void loadingFormation() {
 		btn_back = (Button) this.findViewById(R.id.btn_back_materials_info_look);
+		btn_edit = (Button) this.findViewById(R.id.btn_edit_materials_info_look);
 		
 		tv_materialsNo = (TextView) this.findViewById(R.id.materialsNo_look);
 
@@ -222,6 +226,13 @@ public class LookMaterialsInfoActivity extends Activity {
 				finish();
 			}
 		});
+		btn_edit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				editMaterialsInfo();
+			}
+		});
 	}
 
 	/**
@@ -251,6 +262,18 @@ public class LookMaterialsInfoActivity extends Activity {
 		/*if(db != null){
 			db.close();
 		}*/
+	}
+
+	/**
+	 * 编辑物资信息
+	 */
+	private void editMaterialsInfo() {
+		Intent intent = new Intent();
+		intent.putExtra("materialsNo", materialsNo);
+		intent.setAction(Intent.ACTION_EDIT);
+		intent.setDataAndType(Uri.parse(MyConstants.CONTENT_URI),
+				MyConstants.MATERIALS_INFO_CONTENT_TYPE_EDIT);
+		startActivity(intent);
 	}
 
 }

@@ -105,14 +105,14 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 		if (action.equals(Intent.ACTION_INSERT)) {
 			state = STATE_INSERT;
 			tv_title.setText("新增物资信息");
-			String date = mYear + "-" + mMonth + "-" + mDay;
+			/*String date = mYear + "-" + mMonth + "-" + mDay;
 			btn_ledger_info_commissioningDate.setText(date);
-			btn_card_info_commissioningDate.setText(date);
+			btn_card_info_commissioningDate.setText(date);*/
 		} else if (action.equals(Intent.ACTION_EDIT)) {
 			state = STATE_EDIT;
 			tv_title.setText("编辑物资信息");
 			// 读取数据库里面的数据
-			//readDataFromDb(intent);
+			readDataFromDb(intent);
 		} else {
 			Log.e(TAG, "未知错误, 程序正在退出...");
 			finish();
@@ -173,7 +173,8 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				String commissioningDate = btn_card_info_commissioningDate.getText().toString();
+				//String commissioningDate = btn_ledger_info_commissioningDate.getText().toString();
+				String commissioningDate = ((Button) v).getText().toString();
 				createDatePickerDialog(v, commissioningDate).show();
 			}
 		});
@@ -181,7 +182,8 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				String commissioningDate = btn_card_info_commissioningDate.getText().toString();
+				//String commissioningDate = btn_card_info_commissioningDate.getText().toString();
+				String commissioningDate = ((Button) v).getText().toString();
 				createDatePickerDialog(v, commissioningDate).show();
 			}
 		});
@@ -230,35 +232,41 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 		materialsInfoCache.getCardInfo().setCommissioningDate(card_info_commissioningDate);
 		materialsInfoCache.getCardInfo().setPropertyRight(card_info_propertyRight);
 
-		if (state == STATE_INSERT) {
-			db.addLedgerInfo(materialsInfoCache.getLedgerInfo());
-			db.addCardInfo(materialsInfoCache.getCardInfo());
+		materials_info_materialsNo = et_materials_info_materialsNo.getText().toString().trim();
+		materials_info_note = et_materials_info_note.getText().toString();
+		materialsInfoCache.setMaterialsNo(materials_info_materialsNo);
+		materialsInfoCache.setNote(materials_info_note);
 
-			String ledgerId = null;
-			String cardId = null;
-			
-			cursor = db.findLedgerIdByLedgerInfo(materialsInfoCache.getLedgerInfo());
-			if (cursor.moveToNext()) {
-				ledgerId = cursor.getString(0);
-			}
-			cursor = db.findCardIdByCardInfo(materialsInfoCache.getCardInfo());
-			if (cursor.moveToNext()) {
-				cardId = cursor.getString(0);
-			}
-			materials_info_materialsNo = et_materials_info_materialsNo.getText().toString().trim();
-			materials_info_note = et_materials_info_note.getText().toString();
+		if (state == STATE_INSERT) {
 			// 检验数据的合法性
 			if ("".equals(materials_info_materialsNo) || null == materials_info_materialsNo) {
 				showToast("物资编号不能为空");
 				return;
 			}
-			
-			materialsInfoCache = new MaterialsInfo();
-			materialsInfoCache.setMaterialsNo(materials_info_materialsNo);
-			materialsInfoCache.setNote(materials_info_note);
+			cursor = db.findMaterialsInfoByMaterialsNo(materials_info_materialsNo);
+			if (cursor.moveToNext()) {
+				showToast("该物资编号已存在， 请重试");
+				return;
+			}
+
+			db.addLedgerInfo(materialsInfoCache.getLedgerInfo());
+			db.addCardInfo(materialsInfoCache.getCardInfo());
+
+			String ledgerId = null;
+			String cardId = null;
+
+			cursor = db.findLedgerIdByLedgerInfo(materialsInfoCache.getLedgerInfo());
+			if (cursor.moveToLast()) {
+				ledgerId = cursor.getString(0);
+			}
+			cursor = db.findCardIdByCardInfo(materialsInfoCache.getCardInfo());
+			if (cursor.moveToLast()) {
+				cardId = cursor.getString(0);
+			}
+
 			materialsInfoCache.setLedgerId(ledgerId);
 			materialsInfoCache.setCardId(cardId);
-			
+
 			long count = db.addMaterialsInfo(materialsInfoCache);
 			if (count > 0) {
 				showToast("新建物资信息成功");
@@ -268,15 +276,34 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 				showToast("新建物资信息失败");
 				finish();
 			}
-		} else {
-			/*int count = db.updateCardInfo(cardInfoCache, cardId);
-			if (count > 0) {
-				showToast("卡片信息更新成功");
-				finish();
+		} else if (state == STATE_EDIT) {
+			// 检验数据的合法性
+			if ("".equals(materials_info_materialsNo) || null == materials_info_materialsNo) {
+				showToast("物资编号不能为空");
+				return;
+			}
+			String ledgerId = null;
+			String cardId = null;
+			cursor = db.findMaterialsInfoByMaterialsNo(materials_info_materialsNo);
+			if (cursor.moveToNext()) {
+				ledgerId = cursor.getString(2);
+				cardId = cursor.getString(3);
+			}
+			if (ledgerId != null && cardId != null) {
+				db.updateLedgerInfoByLedgerId(materialsInfoCache.getLedgerInfo(), ledgerId);
+				db.updateCardInfoByCardId(materialsInfoCache.getCardInfo(), cardId);
+				/*materialsInfoCache.setLedgerId(ledgerId);
+				materialsInfoCache.setCardId(cardId);*/
+				int count = db.updateMaterialsInfoByMaterialsNo(materialsInfoCache, materials_info_materialsNo);
+				if (count > 0) {
+					showToast("物资信息更新成功");
+					finish();
+				} else {
+					showToast("物资信息更新失败");
+				}
 			} else {
-				showToast("卡片信息更新失败");
-				finish();
-			}*/
+				showToast("物资信息更新失败");
+			}
 		}
 	}
 
@@ -311,7 +338,72 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	 * @param intent 
 	 */
 	private void readDataFromDb(Intent intent) {
+		String materialsNo = intent.getStringExtra("materialsNo");
+		et_materials_info_materialsNo.setText(materialsNo);
 
+		String ledgerId = null;
+		String cardId = null;
+
+		cursor = db.findMaterialsInfoByMaterialsNo(materialsNo);
+		if (cursor.moveToNext()) {
+			ledgerId = cursor.getString(2);
+			cardId = cursor.getString(3);
+		}
+		if (ledgerId != null) {
+			cursor = db.findLedgerInfoById(ledgerId);
+			if (cursor.moveToNext()) {
+				if (cursor.getString(1) != null && !"".equals(cursor.getString(1))) {
+					et_ledger_info_cardNo.setText(cursor.getString(1));
+				}
+				if (cursor.getString(2) != null && !"".equals(cursor.getString(2))) {
+					et_ledger_info_devicesNo.setText(cursor.getString(2));
+				}
+				if (cursor.getString(3) != null && !"".equals(cursor.getString(3))) {
+					btn_ledger_info_commissioningDate.setText(cursor.getString(3));
+				}
+				if (cursor.getString(4) != null && !"".equals(cursor.getString(4))) {
+					et_ledger_info_manufacturer.setText(cursor.getString(4));
+				}
+				if (cursor.getString(5) != null && !"".equals(cursor.getString(5))) {
+					et_ledger_info_remark.setText(cursor.getString(5));
+				}
+				if (cursor.getString(6) != null && !"".equals(cursor.getString(6))) {
+					et_ledger_info_cost.setText(cursor.getString(6));
+				}
+			}
+		}
+		if (cardId != null) {
+			cursor = db.findCardInfoById(cardId);
+			if (cursor.moveToNext()) {
+				if (cursor.getString(1) != null && !"".equals(cursor.getString(1))) {
+					et_card_info_FID.setText(cursor.getString(1));
+				}
+				if (cursor.getString(2) != null && !"".equals(cursor.getString(2))) {
+					et_card_info_assetsName.setText(cursor.getString(2));
+				}
+				if (cursor.getString(3) != null && !"".equals(cursor.getString(3))) {
+					et_card_info_specification.setText(cursor.getString(3));
+				}
+				if (cursor.getString(4) != null && !"".equals(cursor.getString(4))) {
+					et_card_info_manufacturer.setText(cursor.getString(4));
+				}
+				if (cursor.getString(5) != null && !"".equals(cursor.getString(5))) {
+					btn_card_info_commissioningDate.setText(cursor.getString(5));
+				}
+				if (cursor.getString(6) != null && !"".equals(cursor.getString(6))) {
+					et_card_info_propertyRight.setText(cursor.getString(6));
+				}
+			}
+		}
+
+		cursor = db.getNoteByMaterialsNo(materialsNo);
+		String note = null;
+		if (cursor.moveToNext()) {
+			note = cursor.getString(0);
+		}
+		if (note != null && !"".equals(note)) {
+			et_materials_info_note.setText(note);
+		}
 	}
 
 	/**
@@ -362,7 +454,7 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	 * @param strCommissioningDate
 	 */
 	private void initCommissioningDate(String strCommissioningDate) {
-		if (strCommissioningDate != null) {
+		if (strCommissioningDate != null && !"".equals(strCommissioningDate)) {
 			String args[] = strCommissioningDate.split("-");
 
 			mYear = Integer.valueOf(args[0]);
