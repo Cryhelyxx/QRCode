@@ -9,4 +9,6 @@
 
 1:09 2014/8/9 新增查看物资信息功能
 
+16:13 2014/8/9 修改部分bug
+
 Copyright © GDITC 2014, All Rights Reserved
