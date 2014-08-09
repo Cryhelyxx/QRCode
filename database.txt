@@ -34,7 +34,7 @@ CardInfo							// 卡片信息
 		
 	tbl_ledger_info					// 台账信息表
 		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL _id
-		TEXT NOT NULL cardNo					// 卡片编号
+		Text cardNo					// 卡片编号
 		Text devicesNo				// 设备编号
 		Text commissioningDate		// 投运日期
 		Text manufacturer			// 生产厂家
@@ -43,7 +43,7 @@ CardInfo							// 卡片信息
 		
 	tbl_card_info					// 卡片信息表
 		INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL _id
-		TEXT NOT NULL FID
+		Text FID
 		Text assetsName				// 资产名称
 		Text specification			// 规格型号
 		Text manufacturer			// 制造商

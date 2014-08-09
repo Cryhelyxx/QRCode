@@ -1039,42 +1039,52 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_dark=0x7f02006d;
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006e;
         public static final int abs__toast_frame=0x7f02006f;
-        public static final int actionbar_more_icon_normal=0x7f020070;
-        public static final int actionbar_more_icon_pressed=0x7f020071;
-        public static final int add_edit_text_field=0x7f020072;
-        public static final int arrow=0x7f020073;
-        public static final int btn_back_normal=0x7f020074;
-        public static final int btn_back_pressed=0x7f020075;
-        public static final int btn_edit_materials_info_selector=0x7f020076;
-        public static final int btn_edit_normal=0x7f020077;
-        public static final int btn_edit_pressed=0x7f020078;
-        public static final int btn_more_selector=0x7f020079;
-        public static final int btn_save_note_normal=0x7f02007a;
-        public static final int btn_save_note_pressed=0x7f02007b;
-        public static final int button_back_selector=0x7f02007c;
-        public static final int button_edit_selector=0x7f02007d;
-        public static final int button_materialsno_selector=0x7f02007e;
-        public static final int button_normal=0x7f02007f;
-        public static final int button_pressed=0x7f020080;
-        public static final int button_save_selector=0x7f020081;
-        public static final int button_selector=0x7f020082;
-        public static final int default_bg=0x7f020083;
-        public static final int ic_launcher=0x7f020084;
-        public static final int icon=0x7f020085;
-        public static final int layout_bg=0x7f020086;
-        public static final int layout_btn_materialsno_normal_bg=0x7f020087;
-        public static final int layout_btn_materialsno_pressed_bg=0x7f020088;
-        public static final int layout_btn_normal_bg=0x7f020089;
-        public static final int layout_btn_pressed_bg=0x7f02008a;
-        public static final int layout_title_bg=0x7f02008b;
-        public static final int list_divider_holo_dark=0x7f02008c;
-        public static final int mm_title_back_btn=0x7f02008d;
-        public static final int mm_title_back_focused=0x7f02008e;
-        public static final int mm_title_back_normal=0x7f02008f;
-        public static final int mm_title_back_pressed=0x7f020090;
-        public static final int mmtitle_bg_alpha=0x7f020091;
-        public static final int text_editor_bg=0x7f020092;
-        public static final int text_editor_selected_bg=0x7f020093;
+        public static final int actionbar_bg_selector=0x7f020070;
+        public static final int actionbar_item_normal=0x7f020071;
+        public static final int actionbar_item_pressed=0x7f020072;
+        public static final int actionbar_more_icon=0x7f020073;
+        public static final int actionbar_more_icon_normal=0x7f020074;
+        public static final int actionbar_more_icon_pressed=0x7f020075;
+        public static final int add_edit_text_field=0x7f020076;
+        public static final int arrow=0x7f020077;
+        public static final int btn_add_normal=0x7f020078;
+        public static final int btn_add_pressed=0x7f020079;
+        public static final int btn_add_selector=0x7f02007a;
+        public static final int btn_back_normal=0x7f02007b;
+        public static final int btn_back_pressed=0x7f02007c;
+        public static final int btn_edit_materials_info_selector=0x7f02007d;
+        public static final int btn_edit_normal=0x7f02007e;
+        public static final int btn_edit_pressed=0x7f02007f;
+        public static final int btn_more_selector=0x7f020080;
+        public static final int btn_save_note_normal=0x7f020081;
+        public static final int btn_save_note_pressed=0x7f020082;
+        public static final int btn_search_normal=0x7f020083;
+        public static final int btn_search_pressed=0x7f020084;
+        public static final int btn_search_selector=0x7f020085;
+        public static final int button_back_selector=0x7f020086;
+        public static final int button_edit_selector=0x7f020087;
+        public static final int button_materialsno_selector=0x7f020088;
+        public static final int button_normal=0x7f020089;
+        public static final int button_pressed=0x7f02008a;
+        public static final int button_save_selector=0x7f02008b;
+        public static final int button_selector=0x7f02008c;
+        public static final int default_bg=0x7f02008d;
+        public static final int ic_launcher=0x7f02008e;
+        public static final int icon=0x7f02008f;
+        public static final int layout_bg=0x7f020090;
+        public static final int layout_btn_materialsno_normal_bg=0x7f020091;
+        public static final int layout_btn_materialsno_pressed_bg=0x7f020092;
+        public static final int layout_btn_normal_bg=0x7f020093;
+        public static final int layout_btn_pressed_bg=0x7f020094;
+        public static final int layout_title_bg=0x7f020095;
+        public static final int list_divider_holo_dark=0x7f020096;
+        public static final int mm_title_back_btn=0x7f020097;
+        public static final int mm_title_back_focused=0x7f020098;
+        public static final int mm_title_back_normal=0x7f020099;
+        public static final int mm_title_back_pressed=0x7f02009a;
+        public static final int mmtitle_bg_alpha=0x7f02009b;
+        public static final int text_editor_bg=0x7f02009c;
+        public static final int text_editor_selected_bg=0x7f02009d;
     }
     public static final class id {
         public static final int FID=0x7f05007f;
@@ -1119,7 +1129,7 @@ containing a value of this type.
         public static final int abs__textButton=0x7f050029;
         public static final int abs__title=0x7f050031;
         public static final int abs__up=0x7f05000b;
-        public static final int action_settings=0x7f05009d;
+        public static final int action_settings=0x7f05009f;
         public static final int assetsName=0x7f050080;
         public static final int assetsName_look=0x7f05006f;
         /**  Messages IDs 
@@ -1206,11 +1216,11 @@ containing a value of this type.
         public static final int note=0x7f050066;
         public static final int notes=0x7f050086;
         public static final int notes_look=0x7f050074;
-        public static final int popup_menu_about_us=0x7f0500a1;
-        public static final int popup_menu_add_materials_info=0x7f05009e;
-        public static final int popup_menu_exit=0x7f0500a2;
-        public static final int popup_menu_export_database_data_to_Excel=0x7f0500a0;
-        public static final int popup_menu_update_database_from_excel=0x7f05009f;
+        public static final int popup_menu_about_us=0x7f0500a3;
+        public static final int popup_menu_add_materials_info=0x7f0500a0;
+        public static final int popup_menu_exit=0x7f0500a4;
+        public static final int popup_menu_export_database_data_to_Excel=0x7f0500a2;
+        public static final int popup_menu_update_database_from_excel=0x7f0500a1;
         public static final int preview_view=0x7f050048;
         public static final int propertyRight=0x7f050084;
         public static final int propertyRight_look=0x7f050073;
@@ -1226,14 +1236,16 @@ containing a value of this type.
         public static final int showCustom=0x7f050008;
         public static final int showHome=0x7f050005;
         public static final int showTitle=0x7f050007;
-        public static final int slidingmenumain=0x7f05009c;
+        public static final int slidingmenumain=0x7f05009e;
         public static final int specification=0x7f050081;
         public static final int specification_look=0x7f050070;
         public static final int split=0x7f050025;
         public static final int tabMode=0x7f050003;
         public static final int textview_title=0x7f050089;
         public static final int title_bar_Icon=0x7f050099;
-        public static final int title_bar_btn_more=0x7f05009b;
+        public static final int title_bar_btn_add_materials_info=0x7f05009c;
+        public static final int title_bar_btn_more=0x7f05009d;
+        public static final int title_bar_btn_search_materialsNo=0x7f05009b;
         public static final int title_bar_title=0x7f05009a;
         public static final int title_card_info=0x7f05008b;
         public static final int title_ledger_info=0x7f05008e;
@@ -1387,6 +1399,10 @@ containing a value of this type.
         public static final int title_materials_info=0x7f0a002f;
     }
     public static final class style {
+        public static final int ActionBar=0x7f0b005b;
+        public static final int ActionBarOverflow=0x7f0b005d;
+        public static final int ActionBarTitleText=0x7f0b005c;
+        public static final int ActionButtonOverflow=0x7f0b005e;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -1445,8 +1461,8 @@ containing a value of this type.
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
+
     
- API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f0b0059;
         /**  Application theme. 

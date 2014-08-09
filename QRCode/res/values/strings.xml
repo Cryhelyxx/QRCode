@@ -36,7 +36,7 @@
     <string name="edit" >编 辑</string>
     <string name="edit_title_note" >编辑备注信息</string>
     <string name="title_materials_info" >物资信息</string>
-    <string name="edit_title_materialsNo" >编辑物资编号</string>
+    <string name="edit_title_materialsNo" >编辑物资编码</string>
     <string name="tip_note_info" >备注信息</string>
     
     <string name="ledger_info_cardNo" >卡片编号</string>

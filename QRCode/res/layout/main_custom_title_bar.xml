@@ -26,6 +26,24 @@
         android:textColor="#FFF"
         android:textSize="16sp"
         android:textStyle="bold" />
+    
+    <Button
+        android:id="@+id/title_bar_btn_search_materialsNo"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dip"
+        android:layout_toLeftOf="@+id/title_bar_btn_add_materials_info"
+        android:background="@drawable/btn_search_selector" />
+
+    <Button
+        android:id="@+id/title_bar_btn_add_materials_info"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dip"
+        android:layout_toLeftOf="@+id/title_bar_btn_more"
+        android:background="@drawable/btn_add_selector" />
 
     <Button
         android:id="@+id/title_bar_btn_more"

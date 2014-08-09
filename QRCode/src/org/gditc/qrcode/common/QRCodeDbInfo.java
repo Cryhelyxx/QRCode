@@ -40,19 +40,19 @@ public class QRCodeDbInfo {
 			"TEXT",
 			"TEXT"},
 		{"INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL",
 			"TEXT",
-			"TEXT NOT NULL"},
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"TEXT"},
 		{"INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL",
-			"TEXT NOT NULL"}
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"TEXT",
+			"TEXT"}
 	};
 
 	public static String[] getTableNames() {

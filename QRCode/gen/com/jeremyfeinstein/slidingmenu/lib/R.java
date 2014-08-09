@@ -273,7 +273,7 @@ public final class R {
 		public static final int abs__textfield_searchview_right_holo_dark = 0x7f02006d;
 		public static final int abs__textfield_searchview_right_holo_light = 0x7f02006e;
 		public static final int abs__toast_frame = 0x7f02006f;
-		public static final int ic_launcher = 0x7f020084;
+		public static final int ic_launcher = 0x7f02008e;
 	}
 	public static final class id {
 		public static final int abs__action_bar = 0x7f050036;
@@ -315,7 +315,7 @@ public final class R {
 		public static final int abs__textButton = 0x7f050029;
 		public static final int abs__title = 0x7f050031;
 		public static final int abs__up = 0x7f05000b;
-		public static final int action_settings = 0x7f05009d;
+		public static final int action_settings = 0x7f05009f;
 		public static final int disableHome = 0x7f050009;
 		public static final int edit_query = 0x7f05003c;
 		public static final int fullscreen = 0x7f050013;
@@ -330,7 +330,7 @@ public final class R {
 		public static final int showCustom = 0x7f050008;
 		public static final int showHome = 0x7f050005;
 		public static final int showTitle = 0x7f050007;
-		public static final int slidingmenumain = 0x7f05009c;
+		public static final int slidingmenumain = 0x7f05009e;
 		public static final int tabMode = 0x7f050003;
 		public static final int useLogo = 0x7f050004;
 		public static final int wrap_content = 0x7f050000;
