@@ -15,6 +15,8 @@
 
 ##关于我
 
+* Email：cryhelyxx@gmail.com
+
 * Blog：[我的CSDN博客](http://blog.csdn.net/Cryhelyxx "Cryhelyxx的挨踢博客")
 
 * Github： [我的github](https://github.com/Cryhelyxx "Cryhelyxx的github")
