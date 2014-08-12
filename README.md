@@ -15,8 +15,8 @@
 
 ##关于我
 
-* 我的CSDN博客：[http://blog.csdn.net/Cryhelyxx](http://blog.csdn.net/Cryhelyxx "Cryhelyxx的挨踢博客")
+* Blog：[CSDN博客](http://blog.csdn.net/Cryhelyxx "Cryhelyxx的挨踢博客")
 
-* 我的github： [https://github.com/Cryhelyxx](https://github.com/Cryhelyxx "Cryhelyxx的github")
+* Github： [我的github](https://github.com/Cryhelyxx "Cryhelyxx的github")
 
 Copyright © `GDITC` 2014-2016, All Rights Reserved
