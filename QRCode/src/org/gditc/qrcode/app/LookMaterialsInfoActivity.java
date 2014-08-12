@@ -250,6 +250,18 @@ public class LookMaterialsInfoActivity extends Activity {
 		super.onResume();
 		loadData();
 	}
+	
+	/**
+	 * 编辑物资信息
+	 */
+	private void editMaterialsInfo() {
+		Intent intent = new Intent();
+		intent.putExtra("materialsNo", materialsNo);
+		intent.setAction(Intent.ACTION_EDIT);
+		intent.setDataAndType(Uri.parse(MyConstants.CONTENT_URI),
+				MyConstants.MATERIALS_INFO_CONTENT_TYPE_EDIT);
+		startActivity(intent);
+	}
 
 	@Override
 	protected void onDestroy() {
@@ -263,17 +275,4 @@ public class LookMaterialsInfoActivity extends Activity {
 			db.close();
 		}*/
 	}
-
-	/**
-	 * 编辑物资信息
-	 */
-	private void editMaterialsInfo() {
-		Intent intent = new Intent();
-		intent.putExtra("materialsNo", materialsNo);
-		intent.setAction(Intent.ACTION_EDIT);
-		intent.setDataAndType(Uri.parse(MyConstants.CONTENT_URI),
-				MyConstants.MATERIALS_INFO_CONTENT_TYPE_EDIT);
-		startActivity(intent);
-	}
-
 }

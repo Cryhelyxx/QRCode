@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="40dip"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/mmtitle_bg_alpha" >
+    android:background="@drawable/topbar" >
 
     <ImageView
         android:id="@+id/title_bar_Icon"

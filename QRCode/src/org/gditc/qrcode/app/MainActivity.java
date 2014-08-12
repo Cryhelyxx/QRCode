@@ -1,6 +1,8 @@
 package org.gditc.qrcode.app;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,13 +32,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewConfiguration;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +59,6 @@ public class MainActivity extends Activity {
 	private QRCodeDbHelper db = null;
 	private Cursor cursor = null;
 
-	private Button btnMore = null;
 	private Button btn_scan = null;
 	private LinearLayout btn_materialsNo = null;
 
@@ -100,8 +102,8 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);		// 不显示标题
 		setContentView(R.layout.activity_main);
+		setOverflowShowingAlways();
 		// 方案一：
 		//MyApplication.getInstance().addActivity(this);
 		// 方案二：
@@ -121,7 +123,6 @@ public class MainActivity extends Activity {
 	 * 加载组件
 	 */
 	private void loadingFormation() {
-		btnMore = (Button) this.findViewById(R.id.title_bar_btn_more);
 		btn_scan = (Button) findViewById(R.id.btn_scan);
 		btn_materialsNo = (LinearLayout) this.findViewById(R.id.btn_materialsNo);
 
@@ -174,7 +175,7 @@ public class MainActivity extends Activity {
 	 */
 	private void getBaseInfo(String materialsNo) {
 		tv_materialsNo.setText(materialsNo);
-		
+
 		String ledgerId = null;
 		String cardId = null;
 
@@ -294,43 +295,6 @@ public class MainActivity extends Activity {
 	 * 给组件设置监听器
 	 */
 	private void setComponentsListener() {
-		btnMore.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// 创建PopupMenu对象
-				PopupMenu popup = new PopupMenu(MainActivity.this, v);
-				// 将R.menu.popup_menu菜单资源加载到popup菜单中
-				getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
-				// 为popup菜单的菜单项单击事件绑定事件监听器
-				popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
-
-					@Override
-					public boolean onMenuItemClick(MenuItem item){
-						switch (item.getItemId()) {
-						case R.id.popup_menu_add_materials_info:
-							addMaterialsInfo();
-							break;
-						case R.id.popup_menu_update_database_from_excel:
-							showFileChooser();
-							break;
-						case R.id.popup_menu_export_database_data_to_Excel:
-							exportDbDataToXLS();
-							break;
-						case R.id.popup_menu_about_us:
-							createAboutUs().show();
-							break;
-						case R.id.popup_menu_exit:
-							createExit().show();
-							break;
-						}
-						return true;
-					}
-				});
-				popup.show();
-			}
-		});
-
 		/*
 		 * 点击按钮跳转到二维码扫描界面，这里用的是startActivityForResult跳转
 		 * 扫描完了之后调到该界面
@@ -347,7 +311,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		btn_materialsNo.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				materialsNo = tv_materialsNo.getText().toString().trim();
@@ -426,7 +390,10 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
-	
+
+	/**
+	 * 添加物资信息
+	 */
 	private void addMaterialsInfo() {
 		Intent intent = new Intent();
 		intent.setAction(Intent.ACTION_INSERT);
@@ -460,7 +427,7 @@ public class MainActivity extends Activity {
 		});
 		return builder.create();
 	}
-	
+
 	/**
 	 * 创建是否新增卡片信息对话框
 	 * @return
@@ -499,7 +466,7 @@ public class MainActivity extends Activity {
 				MyConstants.LEDGER_INFO_CONTENT_TYPE_EDIT);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * 编辑卡片信息
 	 * @param cardId
@@ -712,6 +679,15 @@ public class MainActivity extends Activity {
 	}
 
 	/**
+	 * 搜索物资编码
+	 */
+	private void searchMaterialsNo() {
+		Intent intent = new Intent();
+		intent.setClass(MainActivity.this, SearchMaterialsNoActivity.class);
+		MainActivity.this.startActivity(intent);
+	}
+
+	/**
 	 * 任何的按键都是 onKeyDown() 先接收的
 	 * 如果按的是 menu 键，应该返回 false ，表示让后面需要接收 menu 键的事件继续处理。
 	 * 返回 true 就表示这个事件到我这里就完结了，返回false表示继续传递给后面想要接收这个事件的地方
@@ -738,6 +714,68 @@ public class MainActivity extends Activity {
 		}
 
 		return super.onKeyDown(keyCode, event); 
+	}
+
+	/**
+	 * 选项菜单中的项被选中事件
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_search_materialsNo :
+			searchMaterialsNo();
+			return true;
+		case R.id.action_add_materials_info :
+			addMaterialsInfo();
+			return true;
+		case R.id.action_update_database_from_excel :
+			showFileChooser();
+			return true;
+		case R.id.action_export_database_data_to_Excel :
+			exportDbDataToXLS();
+			return true;
+		case R.id.action_about_us :
+			createAboutUs().show();
+			return true;
+		case R.id.action_exit :
+			createExit().show();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onMenuOpened(int featureId, Menu menu) {
+		if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+			if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+				try {
+					Method m = menu.getClass().getDeclaredMethod(
+							"setOptionalIconsVisible", Boolean.TYPE);
+					m.setAccessible(true);
+					m.invoke(menu, true);
+				} catch (Exception e) {
+				}
+			}
+		}
+		return super.onMenuOpened(featureId, menu);
+	}
+
+	private void setOverflowShowingAlways() {
+		try {
+			ViewConfiguration config = ViewConfiguration.get(this);
+			Field menuKeyField = ViewConfiguration.class
+					.getDeclaredField("sHasPermanentMenuKey");
+			menuKeyField.setAccessible(true);
+			menuKeyField.setBoolean(config, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

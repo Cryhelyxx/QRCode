@@ -29,7 +29,8 @@
             android:name="org.gditc.qrcode.app.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -116,7 +117,9 @@
                 <data android:mimeType="org.gditc.qrcode/materialsinfo.edit" />
             </intent-filter>
         </activity>
-        <activity android:name="org.gditc.qrcode.app.LookMaterialsInfoActivity"/>
+        <activity android:name="org.gditc.qrcode.app.LookMaterialsInfoActivity" />
+        <activity android:name="org.gditc.qrcode.app.SearchMaterialsNoActivity"
+            android:theme="@style/CustomTheme" />
     </application>
 
 </manifest>

@@ -414,7 +414,25 @@ public class EditOrAddMaterialsInfoActivity extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		// 缓存数据
-
+		materialsInfoCache = new MaterialsInfo();
+		
+		materialsInfoCache.setMaterialsNo(et_materials_info_materialsNo.getText().toString().trim());
+		materialsInfoCache.setNote(et_materials_info_note.getText().toString().trim());
+		
+		materialsInfoCache.getLedgerInfo().setCardNo(et_ledger_info_cardNo.getText().toString().trim());
+		materialsInfoCache.getLedgerInfo().setDevicesNo(et_ledger_info_devicesNo.getText().toString().trim());
+		materialsInfoCache.getLedgerInfo().setCommissioningDate(btn_ledger_info_commissioningDate.getText().toString());
+		materialsInfoCache.getLedgerInfo().setManufacturer(et_ledger_info_manufacturer.getText().toString().trim());
+		materialsInfoCache.getLedgerInfo().setRemark(et_ledger_info_remark.getText().toString().trim());
+		materialsInfoCache.getLedgerInfo().setCost(et_ledger_info_cost.getText().toString().trim());
+		
+		materialsInfoCache.getCardInfo().setFID(et_card_info_FID.getText().toString().trim());
+		materialsInfoCache.getCardInfo().setAssetsName(et_card_info_assetsName.getText().toString().trim());
+		materialsInfoCache.getCardInfo().setSpecification(et_card_info_specification.getText().toString().trim());
+		materialsInfoCache.getCardInfo().setManufacturer(et_card_info_manufacturer.getText().toString().trim());
+		materialsInfoCache.getCardInfo().setCommissioningDate(btn_card_info_commissioningDate.getText().toString());
+		materialsInfoCache.getCardInfo().setPropertyRight(et_card_info_propertyRight.getText().toString().trim());
+		
 		outState.putSerializable("originalData", materialsInfoCache);
 	}
 

@@ -478,5 +478,52 @@ public class QRCodeDbHelper {
 		return mDb.update(TableNames[0], values, FieldNames[0][1] + "=?", new String[]{materialsNo});
 	}
 
+	/**
+	 * 获取所有物资编码
+	 * @return
+	 */
+	public Cursor getAllMaterialsNo() {
+		String sql = "SELECT * FROM " + TableNames[0];
+		return mDb.rawQuery(sql, null);
+	}
+
+	/**
+	 * 根据关键字搜索物资编码
+	 * @param keywords
+	 * @return
+	 */
+	public Cursor findMaterialsNoByKeywords(String keywords) {
+		String sql = "SELECT * FROM " + TableNames[0] + " WHERE " + FieldNames[0][1] + " LIKE ?";
+		String[] selectionArgs = {keywords};
+		return mDb.rawQuery(sql, selectionArgs);
+	}
+
+	/**
+	 * 根据台账Id删除相应的台账信息
+	 * @param ledgerId
+	 * @return
+	 */
+	public int deleteLedgerInfoByLedgerId(String ledgerId) {
+		return mDb.delete(TableNames[1], FieldNames[1][0] + "=?", new String[]{ledgerId});
+	}
+
+	/**
+	 * 根据卡片Id删除相应的卡片信息
+	 * @param cardId
+	 * @return
+	 */
+	public int deleteCardInfoByCardId(String cardId) {
+		return mDb.delete(TableNames[2], FieldNames[2][0] + "=?", new String[]{cardId});
+	}
+
+	/**
+	 * 根据物资编码删除相应的物资信息
+	 * @param materialsNo
+	 * @return
+	 */
+	public int deleteMaterialsInfoByMaterialsNo(String materialsNo) {
+		return mDb.delete(TableNames[0], FieldNames[0][1] + "=?", new String[]{materialsNo});
+	}
+
 
 }

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="40dip"
-    android:background="@drawable/mmtitle_bg_alpha" >
+    android:background="@drawable/topbar" >
 
     <Button
         android:id="@+id/btn_back_edit_note"
@@ -14,20 +14,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_back_edit_note"
-        android:layout_alignBottom="@+id/btn_back_edit_note"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dip"
+        android:layout_toRightOf="@+id/btn_back_edit_note"
+        android:drawablePadding="4dp"
         android:text="@string/edit_title_note"
-        android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_save_note"
         android:layout_width="69dip"
         android:layout_height="40dip"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/button_save_selector" />
 
 </RelativeLayout>

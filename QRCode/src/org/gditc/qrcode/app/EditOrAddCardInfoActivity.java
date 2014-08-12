@@ -93,9 +93,6 @@ public class EditOrAddCardInfoActivity extends Activity {
 			Log.e(TAG, "未知错误, 程序正在退出...");
 			finish();
 		}
-
-
-
 	}
 
 	/**
@@ -334,6 +331,4 @@ public class EditOrAddCardInfoActivity extends Activity {
 			db.close();
 		}*/
 	}
-
-
 }
