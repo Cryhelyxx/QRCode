@@ -724,6 +724,7 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.action_search_materialsNo :
 			searchMaterialsNo();
+			//goToLogin();
 			return true;
 		case R.id.action_add_materials_info :
 			addMaterialsInfo();
@@ -742,6 +743,15 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * 跳转到登录界面
+	 */
+	private void goToLogin() {
+		Intent intent = new Intent();
+		intent.setClass(this, LoginActivity.class);
+		startActivity(intent);
 	}
 
 	@Override
