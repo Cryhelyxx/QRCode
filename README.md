@@ -1,7 +1,7 @@
-﻿QRCode(Android客户端)
+﻿QRCodeInspectionSystem(二维码巡检系统)
 =======
 
-##二维码实现资产清查辅助工具
+##二维码巡检系统(Android客户端)
 
 * 15:37 2014/8/8 增加`添加物资信息功能`
 
