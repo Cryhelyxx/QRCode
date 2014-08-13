@@ -1,4 +1,4 @@
-﻿QRCodeInspectionSystem(二维码巡检系统)
+﻿二维码巡检系统
 =======
 
 ##二维码巡检系统(Android客户端)
