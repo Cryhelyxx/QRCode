@@ -23,4 +23,4 @@
 
 * Github： [我的github](https://github.com/Cryhelyxx "Cryhelyxx的github")
 
-Copyright © 2014 `GDITC`, All Rights Reserved
+Copyright © 2014 `Cryhelyxx`, All Rights Reserved
