@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <color name="line_color">#ffd3d3d3</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="white">#ffffffff</color>
+    <color name="sliding_item_color">#fffaede5</color>
+	<color name="guidance_text_color">#ffd0d6d9</color>
+	<color name="black_color">#ff000000</color>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/default_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/edit_note_custom_title_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15.0dip"
+        android:layout_marginRight="15.0dip"
+        android:layout_marginTop="20.0dip"
+        android:background="@drawable/layout_bg"
+        android:gravity="center_vertical"
+        android:padding="5dip" >
+
+        <EditText
+            android:id="@+id/note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/add_edit_text_field"
+            android:gravity="left|top"
+            android:hint="@string/tip_note_info"
+            android:inputType="none"
+            android:maxLength="80"
+            android:minLines="5"
+            android:singleLine="false"
+            android:textColor="#000" />
+    </FrameLayout>
+
+</LinearLayout>
